@@ -1,0 +1,8 @@
+flowchart TD
+    PC["Product Catalog Context<br/>اطلاعات کالا و قیمت"]
+    OR["Ordering Context<br/>ثبت سفارش و محاسبه مبلغ"]
+    IN["Inventory Context<br/>بررسی و مدیریت موجودی"]
+
+    PC -->|"اطلاعات کالا و قیمت"| OR
+    OR -->|"درخواست بررسی موجودی"| IN
+    IN -->|"نتیجه بررسی موجودی"| OR
