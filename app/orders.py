@@ -26,4 +26,4 @@ def can_place_order(stock, quantity):
     if quantity <= 0:
         return False
 
-    return stock > quantity
+    return stock >= quantity
