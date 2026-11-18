@@ -21,3 +21,9 @@ def create_order(product_id: int, quantity: int):
     }
     ORDERS.append(order)
     return order
+
+def can_place_order(stock, quantity):
+    if quantity <= 0:
+        return False
+
+    return stock > quantity
