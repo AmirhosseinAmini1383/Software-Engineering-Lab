@@ -1,0 +1,47 @@
+name: MiniOrder CI and Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download source code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install pytest
+
+      - name: Check Python syntax
+        run: python -m compileall -q app
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Package application
+        run: |
+          mkdir -p dist
+          zip -r dist/miniorder-source.zip app requirements.txt README.md
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: miniorder-package
+          path: dist/miniorder-source.zip
+          if-no-files-found: error
+          retention-days: 7
